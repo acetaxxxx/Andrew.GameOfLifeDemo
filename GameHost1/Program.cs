@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace GameHost1
 {
     public class Program
     {
-        
+
         public static bool TimePassRule(bool[,] area)
         {
-            // TODO: fill your code here
-            return area[1, 1];
+            var count = (area[0, 0] ? 1 : 0) + (area[0, 1] ? 1 : 0) + (area[0, 2] ? 1 : 0) + (area[1, 0] ? 1 : 0) + (area[1, 2] ? 1 : 0) + (area[2, 0] ? 1 : 0) + (area[2, 1] ? 1 : 0) + (area[2, 2] ? 1 : 0);
+
+            if (count == 3) return true;
+
+            return area[1, 1] ? count == 2 : false;
+
         }
-
-
 
         static void Main(string[] args)
         {
@@ -22,7 +23,7 @@ namespace GameHost1
 
 
         private static void RunGameOfLife()
-        { 
+        {
             bool[,] matrix = new bool[50, 20];
 
             Init(matrix, 20);
@@ -33,7 +34,7 @@ namespace GameHost1
                 Thread.Sleep(200);
                 Console.SetCursorPosition(0, 0);
 
-                for(int y = 0; y < matrix.GetLength(1); y++)
+                for (int y = 0; y < matrix.GetLength(1); y++)
                 {
                     for (int x = 0; x < matrix.GetLength(0); x++)
                     {
